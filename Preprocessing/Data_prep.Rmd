@@ -1,0 +1,434 @@
+
+```{r}
+library(tidyverse)
+library(plyr)
+library(caret)
+
+```
+
+
+```{r}
+Data <- read.csv("~/Desktop/master.csv")
+```
+
+
+**Remove Fully paid**
+```{r}
+Data$X <- NULL
+Data <- Data[-grep("Fully Paid",Data$loan_status),]
+
+```
+
+
+**Transform the datae character**
+
+```{r}
+chr_to_date_vars <- c("next_pymnt_d")
+Data %>%
+  select_(.dots = chr_to_date_vars) %>%
+  str()
+
+convert_date <- function(x){
+  as.Date(paste0("01-", x), format = "%d-%b-%Y")
+  } 
+
+  Data  %>%
+  mutate_at(.funs = funs(convert_date), .vars = chr_to_date_vars)
+```
+
+**Replace Na values with 0 for Months column as it is important variable **
+
+```{r}
+na_to_zero_vars <- c("mths_since_last_delinq")
+
+Data <- 
+  Data %>%
+  mutate_at(.vars = na_to_zero_vars, .funs = funs(replace(., is.na(.), 0)))
+```
+
+
+**Remove Na values with less percentage**
+
+```{r}
+Data <- Data %>% drop_na(percent_bc_gt_75)
+Data <-Data %>% drop_na(mths_since_rcnt_il)
+Data <-Data %>% drop_na(mths_since_recent_inq)
+Data <-Data %>% drop_na(mths_since_recent_bc)
+```
+
+
+**Function to deal with Outlier**
+
+
+```{r}
+winsor_outlier <- function(x, cutoff = .95, na.rm = FALSE){
+    quantiles <- quantile(x, cutoff, na.rm = na.rm)
+    x[x > quantiles] <- quantiles
+    x
+    }
+
+```
+
+
+
+```{r}
+Data$out_prncp=winsor_outlier(Data$out_prncp)
+Data$percent_bc_gt_75 = winsor_outlier(Data$percent_bc_gt_75)
+```
+
+
+**Remove columns with Characters**
+```{r}
+uniqueID_cols<-c("id","member_id","url","policy_code")
+Data<-Data[ ,! colnames(Data) %in% c(uniqueID_cols) ]
+#Data <- Data[,Fields==FALSE]
+dim(Data)
+```
+
+
+```{r}
+Data$mths_since_last_major_derog<- NULL
+Data$mths_since_recent_revol_delinq	<- NULL
+Data$sub_grade <- NULL
+Data$initial_list_status <- NULL
+Data$debt_settlement_flag_date <- NULL
+Data$zip_code <-NULL
+Data$open_acc <- NULL
+Data$settlement_status <- NULL
+Data$emp_title <- NULL
+Data$purpose<- NULL
+Data$pymnt_plan<- NULL
+
+
+```
+
+
+```{r}
+Data$tot_hi_cred_lim <- NULL
+Data$total_il_high_credit_limit <- NULL
+Data$inq_last_12m <- NULL
+Data$recoveries <- NULL
+Data$pub_rec_bankruptcies <- NULL
+Data$tot_cur_bal <- NULL
+Data$tot_coll_amt <- NULL
+out_prncp_inv <- NULL
+dim(Data)
+```
+
+
+
+```{r}
+Data$pct_tl_nvr_dlq <- NULL
+Data$inq_fi <- NULL
+Data$il_util <- NULL
+Data$max_bal_bc <- NULL
+Data$mo_sin_old_il_acct <- NULL
+Data$hardship_type<- NULL
+Data$payment_plan_start_date <- NULL
+Data$hardship_loan_status <- NULL
+Data$settlement_date <- NULL
+Data$tax_liens <-NULL
+Data$hardship_flag<- NULL
+Data$hardship_status <- NULL
+Data$hardship_start_date <- NULL
+Data$hardship_end_date <- NULL
+Data$hardship_reason <- NULL
+Data$debt_settlement_flag <-NULL
+Data$chargeoff_within_12_mths<- NULL
+Data$collections_12_mths_ex_med <- NULL
+dim(Data)
+```
+```{r}
+Data$sub_grade <- NULL
+Data$num_sats <-NULL
+Data$open_rv_24m <- NULL
+Data$num_il_tl <- NULL
+Data$num_bc_sats <- NULL
+Data$num_tl_op_past_12m <- NULL
+Data$open_rv_12m <- NULL
+Data$num_actv_rev_tl <- NULL
+dim(Data)
+```
+
+
+
+```{r}
+Fields <- sapply(Data, function(x) {
+  Fields <- 1 - sum(is.na(x)) / length(x)
+  Fields < 0.8
+})
+Data <- Data[,Fields==FALSE]
+dim(Data)
+```
+
+
+
+
+```{r}
+dim(Data)
+names(Data)
+```
+
+
+```{r}
+Data <- read.csv("~/Desktop/InputData.csv")
+```
+
+
+
+```{r}
+Data$X.1 <- NULL
+Data$X <- NULL
+```
+
+```{r}
+dim(Data)
+names(Data)
+```
+
+
+
+
+
+```{r}
+write.csv(Data,'InputData.csv')
+```
+
+**Distribution**
+```{r}
+temp_var <- 
+  c("mths_since_last_delinq","mths_since_rcnt_il","mths_since_recent_bc","mths_since_recent_inq","mths_since_recent_revol_delinq","next_pymnt_d","num_accts_ever_120_pd","num_actv_bc_tl","num_actv_rev_tl","num_bc_sats","num_bc_tl","num_il_tl","num_op_rev_tl","num_rev_accts","num_rev_tl_bal_gt_0","num_sats","num_tl_op_past_12m","open_acc_6m","open_act_il","open_il_12m","open_il_24m","open_rv_12m","open_rv_24m","out_prncp","percent_bc_gt_75","pub_rec","grade", "loan_status"
+)
+temp_var 
+```
+
+
+```{r}
+loans <- Data[temp_var]
+loans
+```
+
+**Summary of the Variables**
+```{r}
+status <- funModeling::df_status(loans, print_results = FALSE)
+knitr::kable(status)
+```
+**Status Adjusted**
+
+
+
+### Assigning Default and Not_Default.
+
+
+```{r}
+defaulted <- c("Late (16-30 days)",
+                    "Late (31-120 days)",
+                    "Default",
+                    "Charged Off")
+
+loans <-
+  loans %>% mutate(default = ifelse(!(loan_status %in% defaulted), FALSE, TRUE))
+
+table(loans$default) / nrow(loans)
+is.character(loans$default)
+
+```
+
+
+
+## chekcing the unique rate  of each variable
+```{r}
+status <-
+ status %>%
+  mutate(uniq_rat = unique / nrow(loans))
+
+status %>%
+  select(variable, unique, uniq_rat) %>%
+  mutate(unique = unique, uniq_rat = scales::percent(uniq_rat)) %>%
+  knitr::kable()
+```
+
+**Transformation and convert integer to numeric**
+
+#### first step to deal with numerical variables by converting integer to numericals after inspecting the unique values. 
+```{r}
+ var_num<- c("mths_since_last_delinq","mths_since_rcnt_il","mths_since_recent_bc","mths_since_recent_inq","mths_since_recent_revol_delinq","num_accts_ever_120_pd","num_actv_bc_tl","num_actv_rev_tl","num_bc_sats","num_bc_tl","num_il_tl","num_op_rev_tl","num_rev_accts","num_rev_tl_bal_gt_0","num_sats","num_tl_op_past_12m","open_acc_6m","open_act_il","open_il_12m","open_il_24m","open_rv_12m","open_rv_24m","pub_rec")
+
+loans <-
+  loans %>%
+  mutate_at(.funs = funs(as.numeric), .vars = var_num)
+
+```
+
+
+
+
+**Checking the percentage of zeros and NA's for each variable**
+
+```{r}
+num_vars <- 
+  loans %>% 
+  sapply(is.numeric) %>% 
+  which() %>% 
+  names()
+
+status %>%
+  select(variable, p_zeros, p_na, unique) %>%
+  filter_(~ variable %in% num_vars) %>%
+  knitr::kable()
+```
+
+
+***Check the integer variables to see if we can replace all NA'S OF MONTHS'S VARIABLE WITH zero**
+```{r}
+head(unique(loans$num_rev_tl_bal_gt_0))
+head(unique(loans$num_tl_op_past_12m))
+head(unique(loans$open_acc_6m))
+head(unique(loans$open_il_12m))
+head(unique(loans$open_il_24m))
+head(unique(loans$open_rv_12m))
+head(unique(loans$open_rv_24m))
+head(unique(loans$open_il_24m))
+head(unique(loans$pub_rec))
+head(unique(loans$mths_since_last_delinq))
+
+
+```
+
+**correlation plot**
+
+```{r}
+library(corrplot)
+
+corMat <- cor(loans[, num_vars],use = "complete.obs")
+corrplot(corMat, method="circle", type = "upper",tl.cex = 0.7,tl.offset = 0.5)
+
+```
+
+
+#### Visually we could find some correlation.Using caret function  highly correlated  features can be  seen  with defined cutoff parameter. If two variables have a high correlation, the function looks at the mean absolute correlation of each variable and removes the variable with the largest mean absolute correlation. Using exact = TRUE will cause the function to re-evaluate the average correlations at each step while exact = FALSE uses all the correlations regardless of whether they have been eliminated or not. The exact calculations will remove a smaller number of predictors .
+
+
+```{r}
+caret::findCorrelation(cor(loans[, num_vars], use = "complete.obs"), 
+                       names = TRUE, cutoff = .5)
+```
+
+
+**factor  variable has no NA's which is the next paymonth date. It containts month-year format **
+
+### This factor variable can be eliminated which doesnt not much contribute to our classification model. Unless we plan to do time series model. The factor variable do have NA values which can replaced with -1 format for other modelling purpose. 
+```{r}
+head(unique(loans$next_pymnt_d))
+
+```
+
+
+
+
+```{r}
+status %>% 
+  select(variable, q_na) %>% 
+  filter(variable %in% loans$next_pymnt_d)
+```
+
+**Other Fcator variable is grade. lets find the distribution og gradein our data**
+```{r}
+library(dplyr)
+ggplot(loans, 
+       aes(x = grade, 
+           fill = default)) + 
+  geom_bar(position = "stack")
+
+```
+
+
+
+```{r}
+library(dplyr)
+ggplot(loans, 
+       aes(x = next_pymnt_d, 
+           fill = default)) + 
+  geom_bar(position = "stack")
+
+```
+
+**Outlier analysis- Dealing with numeric variables **
+
+### Since we are using the classification modelling, outliers in numeric value doesnt affect the classification.
+Where the data will be converted into probablities and Logscale for Neural nets
+```{r}
+winsor_outlier <- function(x, cutoff = .95, na.rm = FALSE){
+    quantiles <- quantile(x, cutoff, na.rm = na.rm)
+    x[x > quantiles] <- quantiles
+    x
+    }
+
+
+loans%>%
+  select(out_prncp) %>%
+  mutate_all(.funs = winsor_outlier, cutoff = .95, na.rm = TRUE) %>%
+  gather(measure, value) %>%
+  mutate(default = factor(rep(x = loans$default, 
+                          levels = c("TRUE", "FALSE")))) %>%
+  ggplot(data = ., aes(x = value, fill = default, 
+                       color = default, order = -default)) +
+  geom_density(alpha = 0.3, size = 0.5) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  facet_wrap( ~ measure, scales = "free", ncol = 1)
+
+
+
+
+
+```
+
+
+## we could see it hsows signficant amount in the zeros.
+
+```{r}
+loans%>%
+  select(percent_bc_gt_75) %>%
+  mutate_all(.funs = winsor_outlier, cutoff = .95, na.rm = TRUE) %>%
+  gather(measure, value) %>%
+  mutate(default = factor(rep(x = loans$default, 
+                          levels = c("TRUE", "FALSE")))) %>%
+  ggplot(data = ., aes(x = value, fill = default, 
+                       color = default, order = -default)) +
+  geom_density(alpha = 0.3, size = 0.5) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  facet_wrap( ~ measure, scales = "free", ncol = 1)
+```
+**couldnt find much from the plots**
+
+
+```{r}
+loans %>% 
+  select(default, out_prncp) %>% 
+  filter(out_prncp == 0) %>%
+  dplyr::group_by(default) %>% 
+  dplyr::summarise(number=dplyr::n())
+```
+
+### Above visuals doesnt tell much abiut the variable out_prncp , I am seeing of it has anything to do with target variable. .
+Since we are using the classification modelling, outliers in numeric value doesnt affect the classification.
+Where the data will be converted into probablities and Logscale for Neural nets
+
+
+```{r}
+na_to_zero_vars <-
+  c("mths_since_last_delinq", "mths_since_recent_revol_delinq",
+    "mths_since_last_major_derog")
+
+loans <- 
+  loans %>%
+  mutate_at(.vars = na_to_zero_vars, .funs = funs(replace(., is.na(.), 0)))
+```
+
+
+
+
+
+

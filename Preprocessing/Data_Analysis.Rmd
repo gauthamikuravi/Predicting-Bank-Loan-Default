@@ -1,0 +1,255 @@
+---
+title: "Data Analysis"
+author: "Gauthami"
+date: "3/22/2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+Loan<- read.csv("~/Desktop/Inputfile.csv")
+```
+ 
+ 
+ ## **No of Records**
+ 
+ 
+```{r}
+
+Loan$X <- NULL
+dim(Loan)
+```
+
+## **Attributes**
+
+
+```{r}
+names(Loan)
+```
+
+## **Explore Dataframes**
+
+
+
+```{r}
+head(Loan)
+```
+
+**Target Variable and Percentage of NA's**
+
+```{r}
+levels(Loan$loan_status)
+table(Loan$loan_status)
+## The loan status w.r.t Term 
+table(Loan$loan_status, Loan$term)
+#sum(is.na(Loan))/prod(dim(Loan))
+
+##The NA values
+mean(is.na(Loan))
+```
+
+
+
+
+```{r}
+analysis <- funModeling::df_status(Loan, print_results = FALSE)
+knitr::kable(analysis)
+```
+
+
+```{r}
+library(dplyr)
+analysis <- analysis %>% mutate(uniq_rat = unique / nrow(Loan))
+
+analysis %>%
+  select(variable, unique, uniq_rat) %>%
+  mutate(unique = unique, uniq_rat = scales::percent(uniq_rat)) %>%
+  knitr::kable()
+```
+
+
+
+```{r}
+numeric_cols<-sapply(Loan,is.numeric)
+testloan <-Loan[,numeric_cols]
+str(testloan)
+summary(testloan)
+
+
+```
+
+
+
+```{r}
+dim(testloan)
+```
+
+
+
+
+** removing unwanted columns based on the above Summary Stats**
+
+```{r}
+multicollinear_cols<-c("funded_amnt","funded_amnt_inv","out_prncp_inv","total_pymnt_inv","total_rec_prncp","verification_status_joint","collection_recovery_fee","grade")
+uniqueID_cols<-c("id","member_id","url","policy_code")
+unwanted_cat_var<-c("emp_title","issue_d","desc","title","zip_code","last_pymnt_d","next_pymnt_d","last_credit_pull_d","loan_status")
+
+
+```
+
+**#Removed columns with NA's in more than 5lakhs rows**
+
+
+```{r}
+NA_cols<-c('earliest_cr_line','mths_since_last_delinq','mths_since_last_record','mths_since_last_major_derog','annual_inc_joint','dti_joint','open_acc_6m','open_il_6m','open_il_12m','open_il_24m','mths_since_rcnt_il','total_bal_il','il_util','open_rv_12m','open_rv_24m','max_bal_bc','all_util','inq_fi','total_cu_tl','inq_last_12m')
+new_Loan<-Loan[ ,! colnames(Loan) %in% c(NA_cols) ]
+dim(new_Loan)
+
+```
+
+
+## **get rid of fields that are mainly NA**
+
+```{r}
+Fields <- sapply(new_Loan, function(x) {
+  Fields <- 1 - sum(is.na(x)) / length(x)
+  Fields < 0.8
+})
+
+new_Loan <- new_Loan[,Fields==FALSE]
+dim(new_Loan)
+names(new_Loan)
+```
+
+
+```{r}
+ifac<-sapply(new_Loan, is.factor)
+sapply(new_Loan[, ifac], unique)
+```
+
+
+### **Bad_Indicators are grouped and categorized*
+ 
+```{r}
+bad_indicators <- c("Late (16-30 days)",
+                    "Late (31-120 days)",
+                    "Default",
+                    "Charged Off")
+
+new_Loan$is_bad <- ifelse(new_Loan$loan_status %in% bad_indicators, 1,
+                    ifelse(new_Loan$loan_status =="", NA,
+                           0))
+
+```
+
+
+
+
+### Visualizations to understand the Data **
+
+
+**Check Missingness**
+
+```{r}
+
+library(VIM)
+aggr(Loan, prop = T, number = F, label = T, gap = T, only.miss = T)
+```
+
+
+```{r}
+summary(aggr(Loan))
+```
+
+
+```{r}
+hist(new_Loan$loan_amnt, 
+     main="Histogram for LoanAmount", 
+     xlab="Loan Amount", 
+     border="blue", 
+     col="maroon",
+     las=1, 
+     breaks=20, prob = TRUE)
+boxplot(new_Loan$loan_amnt, col='maroon',xlab = 'LoanAmount', main = 'Box Plot for Loan Amount')
+
+```
+
+```{r}
+library(DescTools)
+Desc(Loan$loan_amnt, main = "Loan amount distribution", plotit = TRUE)
+```
+
+
+```{r cars}
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+Loan %>%
+  group_by(loan_status) %>%
+  summarize(freq = n()) %>%
+  ggplot(aes(reorder(loan_status, freq), y = as.numeric(freq), fill = freq)) +   
+  geom_bar(stat = "identity", position = "dodge", width=0.4) +
+  xlab("Loan Status") +
+  ylab("Frequency") +
+  coord_flip() +
+  theme(legend.position ='none', axis.text.x = element_text(size = 7)) + 
+  ggtitle("Loan Status")
+```
+
+
+```{r}
+box_status <- ggplot(Loan, aes(loan_status, loan_amnt))
+box_status + geom_boxplot(aes(fill = loan_status)) +
+  theme(axis.text.x = element_blank()) +
+  labs(list(
+    title = "Loan amount by status",
+    x = "Status",
+    y = "Amount"))
+```
+
+
+
+```{r}
+Desc(Loan$purpose, main = "Loan purposes", plotit = TRUE)
+```
+
+**Loan by Value **
+
+```{r}
+library(choroplethrMaps)
+utils::data(state.map)
+str(state.map)
+unique(state.map$region)
+```
+
+
+
+```{r}
+library("readxl")
+#states <- readr::read_tsv("~/Desktop/maps.txt")
+states <- read_excel("~/Desktop/maps.xlsx")
+states
+```
+```{r}
+names(states) <- c("code", "fips_code", "name")
+dplyr::setdiff(Loan$addr_state, states$code)
+```
+
+
+
+```{r}
+
+Loan$addr_state <- as.character(Loan$addr_state)
+is.character(Loan$addr_state)
+```
+
+
+
+
+
+
+
+
+
+
+
+
