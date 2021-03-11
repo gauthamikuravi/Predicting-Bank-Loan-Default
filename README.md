@@ -129,10 +129,10 @@ performed 5x sequentially using the following control parameters:
 | 4             | 2             | 5             | 0.01         | 0.80          | LOAN_STATUS=”Default”  | NO            | 
 | 5             | 2             | 5             | 0.05         | 0.40          | LOAN_STATUS=”Default”  | Yes           | 
 
-| Left-aligned | Center-aligned | Right-aligned |
+|  Sequence    | Rule-Minimum   |Rule-Max       | Left-aligned | Center-aligned | Right-aligned |
 | :---         |     :---:      |          ---: |
-| git status   | git status     | git status    |
-| git diff     | git diff       | git diff      |
+| 1            | 2              | git status    |
+| 2            | 2              | git diff      |
 
 
 ### Principal-Component-Analysis
