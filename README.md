@@ -129,11 +129,11 @@ performed 5x sequentially using the following control parameters:
 | 4             | 2             | 5             | 0.01         | 0.80          | LOAN_STATUS=”Default”  | NO            | 
 | 5             | 2             | 5             | 0.05         | 0.40          | LOAN_STATUS=”Default”  | Yes           | 
 
-|  	|  	|  	|  	|  	|
+|Sequence  	| Rule-Minimum  	|Rule-Max  	| Support  	| Confidence   	|Runtime 
 |-	|-	|-	|-	|-	|
-|  	|  	|  	|  	|  	|
-|  	|  	|  	|  	|  	|
-|  	|  	|  	|  	|  	|
+|1  	|  	|  	|  	|  	|
+|2 	|  	|  	|  	|  	|
+|3 	|  	|  	|  	|  	|
 
 
 
