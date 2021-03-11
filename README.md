@@ -130,6 +130,11 @@ performed 5x sequentially using the following control parameters:
 | 4             | 2             | 5             | 0.01          | 0.80         | LOAN_STATUS=”Default”  | NO            | 
 | 5             | 2             | 5             | 0.05          | 0.40         | LOAN_STATUS=”Default”  | Yes           | 
 
+| Left-aligned | Center-aligned | Right-aligned |
+| :---         |     :---:      |          ---: |
+| git status   | git status     | git status    |
+| git diff     | git diff       | git diff      |
+
 
 ### Principal-Component-Analysis
 The  data set was reduced by 50% in observations and in dimensionality by all variables removed in MBA analysis. Furthermore, all near zero variance predictors were removed and only completeobservations selected; PCA runs only on numerical features and thus only numerical predictors were included.
