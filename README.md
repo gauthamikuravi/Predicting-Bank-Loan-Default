@@ -107,7 +107,24 @@ INCOME is normally distributed after outlier treatment.
 <img width="1000" src="./Images/denisity.PNG" alt="logo" />
 
 
+### Market-Basket-Analysis
 
-**Market Basket Analysis**
+### Principal-Component-Analysis
+The  data set was reduced by 50% in observations and in dimensionality by all variables removed in MBA analysis. Furthermore, all near zero variance predictors were removed and only completeobservations selected; PCA runs only on numerical features and thus only numerical predictors were included.
+PCA returned 58 orthogonal axes using 17 predictor variables to describe the total variance in the predictor set.
+The first 16 principal components are considered relevant with eigenvalues greater than 1.0, and cumulatively
+serve to explain approximately 78.9% of the variance in the predictor data set. Examination of the first ф[1,5]
+loading vectors indicates that the first 5 eigenvectors (principal components) describe the following features of a
+loan:
+
+• PC1: total # credit lines of borrower
+• PC2: loan amount and installment of borrower
+• PC3: length of time of open credit accounts
+• PC4: borrower FICO scores
+• PC5: total $ balance on all credit lines of borrower
+
+<img width="1000" src="./Images/PCA.PNG" alt="logo" />
+
+
 
 
