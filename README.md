@@ -8,6 +8,8 @@
 - [Data Directory](#Data-Directory)
 - [Data Collection and Cleaning](#Data-Collection-and-Cleaning)
 - [Data-Preprocessing-&-Preparation](#Data-Preprocessing-&-Preparation)
+- [Market-Basket-Analysis](#Market-Basket-Analysis)
+- [Principal-Component-Analysis](#Principal-Component-Analysis)
 - [Modeling](#Modeling)
 - [References](#References)
 
@@ -108,6 +110,26 @@ INCOME is normally distributed after outlier treatment.
 
 
 ### Market-Basket-Analysis
+
+The purpose of Market Basket Association (MBA) was done as part of Exploratory Data Analysis to ascertain
+what features demonstrated higher associations with the response variable in the spirit of parsimonious model
+selection. I  recognized that MBA is computationally very expensive with a total item set possibility power set
+of 2149 and thus rule length and support parameters were controlled in order that the model ran successfully
+subject to our computational resource constraints.
+The master dataset was prepared for MBA by including only complete data observations and then binning all
+numericals into their respective quartile intervals subject to their respective distributions. MBA was then
+performed 5x sequentially using the following control parameters:
+
+
+| Sequence      | Rule Minimum  | Rule Max       | Support     | Confidence    | Appearance             | Runtime       | 
+|                 Length          Length                                                                  Successful
+| ------------- | ------------- | ------------- | -------------| ------------- | -----------------------| ------------- | 
+| 1             | 2             | 2             | 0.01          | 0.95         | LOAN_STATUS=”Default”  | Yes           | 
+| 2             | 2             | 3             | 0.01          | 0.80         | LOAN_STATUS=”Default”  | Yes           | 
+| 3             | 2             | 3             | 0.01          | 0.80         | LOAN_STATUS=”Default”  | Yes           | 
+| 4             | 2             | 5             | 0.01          | 0.80         | LOAN_STATUS=”Default”  | NO            | 
+| 5             | 2             | 5             | 0.05          | 0.40         | LOAN_STATUS=”Default”  | Yes           | 
+
 
 ### Principal-Component-Analysis
 The  data set was reduced by 50% in observations and in dimensionality by all variables removed in MBA analysis. Furthermore, all near zero variance predictors were removed and only completeobservations selected; PCA runs only on numerical features and thus only numerical predictors were included.
