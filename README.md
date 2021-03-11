@@ -32,7 +32,7 @@ missed a loan payment; we discuss the basis for this grouping further in this re
 
 The datasets from Lending Club are publicly available2. These datasets contain comprehensive information on
 all loans purchased by the company between 2007 and Q4 of 2019 (a new updated data set is made available
-every quarter). For purposes of the Analysis, we used eight quarters data ranging from 1Q2018 – 4Q2019, as this
+every quarter). For purposes of the Analysis, I used eight quarters data ranging from 1Q2018 – 4Q2019, as this
 represented the most recent loan data. Thus master data set was aggregated across eight separate data files and
 compiled into a single dataset. The primary key for the data set is ID. The master data set file contains
 1,012,366 tuples with 150 predictors including the response variable. We identified the response variable as
@@ -41,3 +41,14 @@ Days), Late (31-120 Days}. The dataset is highly dimensional with 149 predictors
 numeric, categorical and date data types that describe each loan purchased by the Company. Predictor features
 of a loan include: loan issue date, interest rate, loan amount, loan terms, next payment date, annual income of
 borrower, among others.
+
+### Data Collection and Cleaning
+
+**Response Variable**
+For the data set as discussed above, the response variable has been defined as a loan being current or having
+defaulted. LOAN_STATUS is the variable indicating loan status. The loan Status variable defines those who are
+fully Paid (16.83% ), Current status of the loan (75.8%) and Defaulted (less than 1% of the data) , charged
+off(4.5%) of the data. We could the conclude from the data that major portion consists of the Current status of
+the loan
+
+<img width="700" src="./images/Loanamount.PNG" alt="logo" />
