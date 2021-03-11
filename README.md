@@ -84,3 +84,29 @@ There are two categories in Term Length. One with 36 month term the loan was bor
 months. We could see there are higher proportions of those with 36 month term with 693412 and 60 months with
 
 <img width="1000" src="./Images/loanstatus-term.PNG" alt="logo" />
+
+### Data Preprocessing & Preparation
+
+
+
+**Univariate Analysis**
+performed univariate analysis on each of the features to check for its variance against the target variable
+LOAN_STATUS. Zero-Variance features and the ones having higher percentage of unique values were removed.
+**Multicollinearity**
+To understand the relationship between multiple variables and attributes in the dataset i ran correlation matrix
+on all the numerical features with threshold as 80% and selected the co-related variable exhibiting maximum
+variance to the response.
+**Outlier Analysis**
+We performed outlier analysis on all the features that had skewed data distribution.
+For identifying outliers Winsorization outlier technique was used. Winsorization replaces extreme values with
+the quantiles, rather than removing. This gives an advantage over other techniques which result in loss of
+information. Below is the density plot for ANNUAL INCOME feature, from the plot we can see that ANNUAL
+INCOME is normally distributed after outlier treatment.
+
+<img width="1000" src="./Images/denisity.PNG" alt="logo" />
+
+
+
+**Market Basket Analysis**
+
+
