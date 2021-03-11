@@ -71,11 +71,11 @@ The distributions of the numerical variables are to be considered for exploratio
 
 
 
-**Fico Score Vs Loan Status:**
+- **Fico Score Vs Loan Status:**
 
 From the box plot we observe that median FICO scores are much higher for current loans compared to defaulted
 ones. These FICO scores provide the information on how likely loan status could go Default.
-**Installment Vs Loan Status:**
+- **Installment Vs Loan Status:**
 Installment amount varies largely between 261.4 to 693 with median of 450.Based on the plot, we can say that
 loans defaulted have on average higher installment amount
 <img width="700" src="./Images/Installmentvsloanstatus.PNG" alt="logo" />
