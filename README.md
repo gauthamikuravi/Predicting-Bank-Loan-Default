@@ -51,4 +51,4 @@ fully Paid (16.83% ), Current status of the loan (75.8%) and Defaulted (less tha
 off(4.5%) of the data. We could the conclude from the data that major portion consists of the Current status of
 the loan
 
-<img width="700" src="./images/Loanamount.PNG" alt="logo" />
+<img width="700" src="./Images/Loanamount.PNG" alt="logo" />
