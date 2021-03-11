@@ -3,7 +3,7 @@
 
 ### Content 
 - [Problem Statement](#Problem-Statement)
-- [Data Overview](#Data Overview)
+- [Data-Overview](#Data-Overview)
 - [Project Files](#Project-Files)
 - [Data Directory](#Data-Directory)
 - [Data Collection and Cleaning](#Data-Collection-and-Cleaning)
@@ -28,7 +28,7 @@ to understanding their expected return on investment of the loan. For purposes o
 be in default if it is in technical violation of the loan agreement, thus if it has defaulted or if the borrower has
 missed a loan payment; we discuss the basis for this grouping further in this report.
 
-## Data Overview
+## Data-Overview
 
 The datasets from Lending Club are publicly available2. These datasets contain comprehensive information on
 all loans purchased by the company between 2007 and Q4 of 2019 (a new updated data set is made available
