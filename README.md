@@ -51,4 +51,19 @@ fully Paid (16.83% ), Current status of the loan (75.8%) and Defaulted (less tha
 off(4.5%) of the data. We could the conclude from the data that major portion consists of the Current status of
 the loan
 
-<img width="700" src="./Images/loanstatus.PNG" alt="logo" />
+<img width="1000" src="./Images/loanstatus.PNG" alt="logo" />
+
+**Numerical Predictors:**
+
+One of the important input feature we have explored are LOAN_AMNT which is the loan amount. From the
+below plot and Table , we can infer that the loan amount varies between as minimum of 1000$ up to maximum
+of 40000. The mean of the loan amount is $16253 and as the box plot suggests, the majority of the loans are
+somewhere between $10000 - $20000. It is important to look at how loan amount is distributed among the data.
+The distributions of the numerical variables are to be considered for exploration while building the model􀀀􀀀
+
+
+
+
+
+<img width="700" src="./Images/Loanamount.PNG" alt="logo" />
+<img width="700" src="./Images/annualincomePNG.PNG" alt="logo" />
