@@ -66,4 +66,4 @@ The distributions of the numerical variables are to be considered for exploratio
 
 
 <img width="700" src="./Images/Loanamount.PNG" alt="logo" />
-<img width="700" src="./Images/annualIncomePNG.PNG" alt="logo" />
+<img width="700" src="./Images/annualncomePNG.PNG" alt="logo" />
