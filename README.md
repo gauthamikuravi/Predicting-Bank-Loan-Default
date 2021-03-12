@@ -169,9 +169,22 @@ executions, have  downsampled the current loans to be equal to default loans. Fo
 
 - Thus for purposes of tuning, model parameters, we formulated a new optimization function ROF(Accuracy,Specificity) as defined below:
 
-**ROF(Accuracy,Specificity) =2*Specificity + Accuracy – (Accmax – Accuracy)**
+- **ROF(Accuracy,Specificity) =2*Specificity + Accuracy – (Accmax – Accuracy)**
 
 <img width="400" src="./Images/Tradeoff.PNG" alt="logo" />
+
+Determining the likelihood of a loan to default, like many financial metrics, is clearly not an easy task. Our
+finding nevertheless shows a promising direction in loan prediction. All 4 prediction models beat the benchmark
+strategy of the prior probability of a loan defaulting in the test data set threshold of 50% post down sampling.
+XGB performed the best among the 4 models tested with the highest AUC and Accuracy. However, when we
+consider the economic cost of the model results, CART/Classification tree is superior to XGB having the highest
+Specificity rate among all 4 models. Parsimonious model selection/dimension reduction shows significant
+17 improvement in model performance with a 40% increase on average. Reduced feature selection to the subset
+exhibiting the strongest predictive relationship with the response optimized our model performance results.
+
+
+<img width="400" src="./Images/Modelresults.PNG" alt="logo" />
+
 
 **Model-Summary**
 
