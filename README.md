@@ -5,7 +5,6 @@
 - [Problem Statement](#Problem-Statement)
 - [Data-Overview](#Data-Overview)
 - [Project Files](#Project-Files)
-- [Data Directory](#Data-Directory)
 - [Data Collection and Cleaning](#Data-Collection-and-Cleaning)
 - [Data-Preprocessing-&-Preparation](#Data-Preprocessing-&-Preparation)
 - [Market-Basket-Analysis](#Market-Basket-Analysis)
@@ -26,10 +25,15 @@ through its investors. Mathematically, we present the problem statement as:
 models for future loans, and for investors, the ability to predict if a loan will default or remain current is essential
 to understanding their expected return on investment of the loan.** 
 
+### Data-Overview
 The primary key for the data set is ID. The master data set file contains
 1,012,366 tuples with **150 predictor**s including the response variable. We identified the response variable as
 LOAN_STATUS with a cardinality of {Current, Charged Off, Default, Fully Paid, In Grace Period, Late (16-30
 Days), Late (31-120 Days}. 
+
+### Project-Files
+
+[Preprocessing](https://github.com/gauthamikuravi/Predicting-Bank-Loan-Default/tree/master/Preprocessing)
 
 ### Data Collection and Cleaning
 
