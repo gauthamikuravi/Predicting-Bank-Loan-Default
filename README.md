@@ -183,7 +183,7 @@ Specificity rate among all 4 models. Parsimonious model selection/dimension redu
 exhibiting the strongest predictive relationship with the response optimized our model performance results.
 
 
-<img width="400" src="./Images/Modelresults.PNG" alt="logo" />
+<img width="1000" src="./Images/Modelresults.PNG" alt="logo" />
 
 
 **Model-Summary**
