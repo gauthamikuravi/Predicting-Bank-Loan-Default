@@ -71,13 +71,13 @@ ones. These FICO scores provide the information on how likely loan status could 
 - **Installment Vs Loan Status:**
 Installment amount varies largely between 261.4 to 693 with median of 450.Based on the plot, we can say that
 loans defaulted have on average higher installment amount
-<img width="1000" src="./Images/Installmentvsloanstatus.PNG" alt="logo" />
+<img width="700" src="./Images/Installmentvsloanstatus.PNG" alt="logo" />
 
 - **Term Length**
 There are two categories in Term Length. One with 36 month term the loan was borrowed and other is 60
 months. We could see there are higher proportions of those with 36 month term with 693412 and 60 months with
 
-<img width="1000" src="./Images/loanstatus-term.PNG" alt="logo" />
+<img width="400" src="./Images/loanstatus-term.PNG" alt="logo" />
 
 ### Data-Preprocessing-&-Preparation
 
