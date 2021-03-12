@@ -10,6 +10,7 @@
 - [Data-Preprocessing-&-Preparation](#Data-Preprocessing-&-Preparation)
 - [Market-Basket-Analysis](#Market-Basket-Analysis)
 - [Principal-Component-Analysis](#Principal-Component-Analysis)
+- [Enhanced-Feature-Engineering](#Enhanced-Feature-Engineering)
 - [Modeling](#Modeling)
 - [References](#References)
 
@@ -148,6 +149,23 @@ loan:
 
 <img width="1000" src="./Images/PCA.PNG" alt="logo" />
 
+### Enhanced-Feature-Engineering
+
+**Lasso Regression – Feature Selection**
+
+Following initial model executions, to help gain intuition about which covariates account for most of the
+variation in default, I estimated a LASSO regression using all of the available features from preprocessing.
+To tune the penalty parameter, we performed 10-fold cross validation with binomial distribution.
+
+<img width="700" src="./Images/Lasso.PNG" alt="logo" />
+
+ran random forest on all the features to identify the strongest features to the response. Features like
+INSTALL PER INCOME, APPLICATION_TYPE, LAST MEAN FICO SCORE ranked consistently high.
+LASSO was primarily used for feature selection in conjunction with random forest bagging (variable importance)
+to get final set of features. This helped in reducing the dimensionality from 57 to 23 features.
+The waterfall chart below summarizes the total feature selection completed as part of preprocessing and
+enhanced feature engineering.
+RED denotes
 
 
-
+<img width="1000" src="./Images/Feature_Summary.PNG" alt="logo" />
