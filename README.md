@@ -171,7 +171,7 @@ executions, have  downsampled the current loans to be equal to default loans. Fo
 
 **ROF(Accuracy,Specificity) =2*Specificity + Accuracy – (Accmax – Accuracy)**
 
-<img width="1000" src="./Images/Tradeoff.PNG" alt="logo" />
+<img width="400" src="./Images/Tradeoff.PNG" alt="logo" />
 
 **Model-Summary**
 
