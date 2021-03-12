@@ -163,9 +163,11 @@ ran random forest on all the features to identify the strongest features to the 
 INSTALL PER INCOME, APPLICATION_TYPE, LAST MEAN FICO SCORE ranked consistently high.
 LASSO was primarily used for feature selection in conjunction with random forest bagging (variable importance)
 to get final set of features. This helped in reducing the dimensionality from 57 to 23 features.
-The waterfall chart below summarizes the total feature selection completed as part of preprocessing and
+
+- The waterfall chart below summarizes the total feature selection completed as part of preprocessing and
 enhanced feature engineering.
-RED denotes
+[1] RED denotes subtraction
+[2] BLUE denotes addition
 
 
 <img width="1000" src="./Images/Feature_Summary.PNG" alt="logo" />
