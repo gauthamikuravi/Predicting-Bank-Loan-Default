@@ -158,6 +158,13 @@ enhanced feature engineering.
 <img width="1000" src="./Images/Feature_Summary.PNG" alt="logo" />
 
 
+
+- Thus for purposes of tuningmodel parameters, we formulated a new optimization function ROF(Accuracy,Specificity) as defined below:
+
+**ROF(Accuracy,Specificity) =2*Specificity + Accuracy – (Accmax – Accuracy)**
+
+<img width="1000" src="./Images/Tradeoff.PNG" alt="logo" />
+
 **Model-Summary**
 
 For Lending Club Company, we make the following economic observations to the default likelihood of a loan:
