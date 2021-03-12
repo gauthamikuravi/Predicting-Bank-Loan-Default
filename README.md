@@ -158,6 +158,14 @@ enhanced feature engineering.
 <img width="1000" src="./Images/Feature_Summary.PNG" alt="logo" />
 
 
+**Model-Summary**
+
+For Lending Club Company, we make the following economic observations to the default likelihood of a loan:
+- Last FICO Score and installment amount per income are critical predictors in predicting default
+likelihood of a loan
+- Joint Applications versus Individual Application loans increased probability of default by 40%
+- Debt consolidation loans increased default likelihood by 14% while car financing loans decreased
+default likelihood by 18%
 
 ### References
 
