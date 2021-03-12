@@ -156,3 +156,10 @@ enhanced feature engineering.
 
 
 <img width="1000" src="./Images/Feature_Summary.PNG" alt="logo" />
+
+
+
+### References
+
+Source: Lending Club 10-K, Dec 31, 2019􀀀
+􀀀https://www.lendingclub.com/auth/login?login_url=%2Fstatistics%2Fadditional-statistics%3F􀀀
