@@ -155,11 +155,19 @@ enhanced feature engineering.
 [2] BLUE denotes addition
 
 
-<img width="1000" src="./Images/Feature_Summary.PNG" alt="logo" />
+<img width="700" src="./Images/Feature_Summary.PNG" alt="logo" />
 
 
+### Modelling
 
-- Thus for purposes of tuningmodel parameters, we formulated a new optimization function ROF(Accuracy,Specificity) as defined below:
+Initial models were run on skewed response distribution as further discussed below. Following enhanced engineering and results of the initial model
+executions, have  downsampled the current loans to be equal to default loans. For the purpose of modeling, have split the data to 80% under training and 20% under test to validate the model. This method tends to work well and run faster than up sampling or cost-sensitive training. Final dimensions of the train and test data are printed below.
+|  	| Rows 	| Columns 	| Encoded-Columns 	|
+|-	|-	|-	|-	|
+| Train (80%) 	| 116938 	| 37 	| 24 	|
+| Test (20%) 	| 29234 	| 37 	| 24 	|
+
+- Thus for purposes of tuning, model parameters, we formulated a new optimization function ROF(Accuracy,Specificity) as defined below:
 
 **ROF(Accuracy,Specificity) =2*Specificity + Accuracy – (Accmax – Accuracy)**
 
