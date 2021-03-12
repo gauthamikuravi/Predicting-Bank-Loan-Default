@@ -121,19 +121,13 @@ numericals into their respective quartile intervals subject to their respective 
 performed 5x sequentially using the following control parameters:
 
 
- 
-| Sequence      | Rule-Minimum  | Rule-Max      | Support      | Confidence    | Appearance             | Runtime       |                                                          |:---           |:---           |:---           |:---          |:---           |:---                    |:---           |
-| 1             | 2             | 2             | 0.01         | 0.95          | LOAN_STATUS=”Default”  | Yes           | 
-| 2             | 2             | 3             | 0.01         | 0.80          | LOAN_STATUS=”Default”  | Yes           | 
-| 3             | 2             | 3             | 0.01         | 0.80          | LOAN_STATUS=”Default”  | Yes           | 
-| 4             | 2             | 5             | 0.01         | 0.80          | LOAN_STATUS=”Default”  | NO            | 
-| 5             | 2             | 5             | 0.05         | 0.40          | LOAN_STATUS=”Default”  | Yes           | 
-
-|Sequence  	| Rule-Minimum  	|Rule-Max  	| Support  	| Confidence   	|Runtime 
-|-	|-	|-	|-	|-	|
-|1  	|  	|  	|  	|  	|
-|2 	|  	|  	|  	|  	|
-|3 	|  	|  	|  	|  	|
+| Sequence  	| Rule-Minimum 	| Rule-Max 	| Support 	| Confidence 	| Appearance 	| Runtime 	|
+|-	|:-:	|-:	|-	|-	|-	|-	|
+| 1 	| 2 	| 2 	| 0.01 	| 0.95 	| LOAN_STATUS=”Default” 	| Yes 	|
+| 2 	| 2 	| 3 	| 0.01 	| 0.80 	| LOAN_STATUS=”Default” 	| Yes 	|
+| 3 	| 2 	| 3 	| 0.01 	| 0.80 	| LOAN_STATUS=”Default” 	| Yes 	|
+| 4 	| 2 	| 5 	| 0.01 	| 0.80 	| LOAN_STATUS=”Default” 	| No 	|
+| 5 	| 2 	| 5 	| 0.05 	| 0.40 	| LOAN_STATUS=”Default” 	| Yes 	|
 
 
 
