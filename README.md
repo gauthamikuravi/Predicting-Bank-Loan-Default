@@ -22,10 +22,7 @@ default given that it has already been originated by a third party bank and purc
 through its investors. Mathematically, we present the problem statement as:
 
 **Pr(Loan remains current | Loan has been funded)**
-
-The probability that a loan remains current, or alternatively 1 less the probability that the loan defaults is relevant
-to both the Company as well as the investors/holders of the notes that funded the purchase the loan. LC can
-benefit from better understanding what loans will default once funded and further **improve their underwriting
+ LC can benefit from better understanding what loans will default once funded and further **improve their underwriting
 models for future loans, and for investors, the ability to predict if a loan will default or remain current is essential
 to understanding their expected return on investment of the loan.** 
 
